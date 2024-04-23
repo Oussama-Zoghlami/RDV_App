@@ -24,7 +24,7 @@ public class Medecin {
     private Integer prix;
 
     @Enumerated(EnumType.STRING)
-    private Specialite specialite;
+    private Specialiste specialiste;
 
 
     @JsonIgnore
