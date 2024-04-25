@@ -35,5 +35,7 @@ public class RDV {
     @ManyToOne
     @JoinColumn(name = "medecin_id")
     private Medecin medecin;
+    @Enumerated(EnumType.STRING)
+    private  PaiementRDV paiementRDV;
 
 }

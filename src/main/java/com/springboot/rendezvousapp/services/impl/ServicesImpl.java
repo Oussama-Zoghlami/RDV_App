@@ -1,12 +1,10 @@
 package com.springboot.rendezvousapp.services.impl;
 
 
-import com.springboot.rendezvousapp.entities.Medecin;
-import com.springboot.rendezvousapp.entities.Patient;
-import com.springboot.rendezvousapp.entities.Specialite;
-import com.springboot.rendezvousapp.entities.User;
+import com.springboot.rendezvousapp.entities.*;
 import com.springboot.rendezvousapp.repository.MedecinRepo;
 import com.springboot.rendezvousapp.repository.PatientRepo;
+import com.springboot.rendezvousapp.repository.RDVRepo;
 import com.springboot.rendezvousapp.repository.UserRepo;
 import com.springboot.rendezvousapp.services.Services;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,6 +21,8 @@ public class ServicesImpl implements Services {
     private MedecinRepo medecinRepo;
     @Autowired
     private PatientRepo patientRepo;
+    @Autowired
+    private RDVRepo rdvRepo;
 
     @Override
     public User addUser(User user) {
@@ -58,6 +58,10 @@ public class ServicesImpl implements Services {
     public List<Medecin> getMedecinBySpecialite(Specialite specialite) {
         return medecinRepo.findBySpecialite(specialite);
     }
+    @Override
+    public List<Medecin> getAllMedecins() {
+        return medecinRepo.findAll();
+    }
 
 
 
@@ -77,6 +81,26 @@ public class ServicesImpl implements Services {
     public Patient affichPatient(Integer idPatient) {
         return patientRepo.findById(idPatient).orElse(null);
     }
+
+
+    @Override
+    public RDV addRDV(RDV rdv) {
+
+        Medecin medecin = medecinRepo.findByNomMedecin(rdv.getNomDuMedecin());
+        Patient patient = patientRepo.findByNomPatient(rdv.getNomDuPatient());
+
+
+        rdv.setMedecin(medecin);
+        rdv.setPatient(patient);
+        rdv.setPaiementRDV(PaiementRDV.NonPayes);
+        return rdvRepo.save(rdv);
+    }
+
+
+
+
+
+
 
 
 

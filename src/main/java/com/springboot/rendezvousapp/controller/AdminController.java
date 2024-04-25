@@ -92,6 +92,13 @@ public class AdminController {
         return p;
     }
 
+    @PreAuthorize("permitAll()")
+    @GetMapping("/listMedecins")
+    public List<Medecin> getAllMedecins() {
+        List<Medecin> medecins=services.getAllMedecins();
+        return medecins;
+    }
+
 
 
 

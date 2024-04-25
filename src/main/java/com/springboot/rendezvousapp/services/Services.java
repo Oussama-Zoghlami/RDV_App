@@ -1,9 +1,6 @@
 package com.springboot.rendezvousapp.services;
 
-import com.springboot.rendezvousapp.entities.Medecin;
-import com.springboot.rendezvousapp.entities.Patient;
-import com.springboot.rendezvousapp.entities.Specialite;
-import com.springboot.rendezvousapp.entities.User;
+import com.springboot.rendezvousapp.entities.*;
 
 import java.util.List;
 
@@ -19,11 +16,15 @@ public interface Services {
     public Medecin addMedecin(Medecin medecin);
 
     public void deleteMedecin(Integer idMedecin);
+    public List<Medecin> getAllMedecins();
     //public Medecin affichMedecin(Integer cinMed);
     public List<Medecin> getMedecinBySpecialite(Specialite specialite);
     public Patient addPatient(Patient patient);
     public Patient updatePatient(Patient patient);
     public void deletePatient(Integer idPatient);
     public Patient affichPatient(Integer idPatient);
+
+    //RDV
+    public RDV addRDV(RDV rdv);
 
 }

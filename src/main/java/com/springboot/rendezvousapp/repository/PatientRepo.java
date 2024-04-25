@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface PatientRepo extends JpaRepository<Patient,Integer> {
 
     Optional<Patient> findById(Integer idPatient);
+    Patient findByNomPatient(String nomDuPatient);
 }
