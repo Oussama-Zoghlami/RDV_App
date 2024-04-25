@@ -1,6 +1,6 @@
 package com.springboot.rendezvousapp.entities;
 
-public enum Specialiste {
+public enum Specialite {
     CARDIOLOGIE,
     DERMATOLOGIE,
     PSYCHIATRIE,

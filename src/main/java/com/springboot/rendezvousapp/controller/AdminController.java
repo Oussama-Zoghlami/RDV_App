@@ -1,6 +1,7 @@
 package com.springboot.rendezvousapp.controller;
 
 import com.springboot.rendezvousapp.entities.Medecin;
+import com.springboot.rendezvousapp.entities.Specialite;
 import com.springboot.rendezvousapp.entities.User;
 import com.springboot.rendezvousapp.services.Services;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/admin")
+@RequestMapping("/api/v1/auth/admin")
 @RequiredArgsConstructor
 public class AdminController {
     private final Services services;
@@ -53,12 +54,7 @@ public class AdminController {
         return u;
     }
 
-    @PreAuthorize("permitAll()")
-    @PutMapping("/updateMedecin/{cin}")
-    public  ResponseEntity<Medecin> updateMedecin(@PathVariable("cin") Integer cin,@RequestBody Medecin updatedmedecin) {
-        Medecin m=services.updateMedecin(cin,updatedmedecin);
-        return ResponseEntity.ok(m);
-    }
+
 
 
     @PreAuthorize("permitAll()")
@@ -66,13 +62,12 @@ public class AdminController {
     public void deleteMedecin(@PathVariable ("idMedecin")Integer idMedecin) {
         services.deleteMedecin(idMedecin);
     }
-
     @PreAuthorize("permitAll()")
-    @GetMapping("/affichMedecin/{cinMedecin}")
-    public Medecin affichMedecin(@PathVariable ("cinMedecin")Integer cinMedecin) {
-        Medecin m=services.affichMedecin(cinMedecin);
-        return m;
+    @GetMapping("/medecinBySpecialite/{specialite}")
+    public List<Medecin> getMedecinBySpecialite(@PathVariable Specialite specialite) {
+        return services.getMedecinBySpecialite(specialite);
     }
+
 
 
 

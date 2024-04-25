@@ -2,6 +2,7 @@ package com.springboot.rendezvousapp.services.impl;
 
 
 import com.springboot.rendezvousapp.entities.Medecin;
+import com.springboot.rendezvousapp.entities.Specialite;
 import com.springboot.rendezvousapp.entities.User;
 import com.springboot.rendezvousapp.repository.MedecinRepo;
 import com.springboot.rendezvousapp.repository.UserRepo;
@@ -43,41 +44,18 @@ public class ServicesImpl implements Services {
     public Medecin addMedecin(Medecin medecin) {
         return medecinRepo.save(medecin);
     }
-    @Override
-    public Medecin updateMedecin(Integer cinMedecin, Medecin updatedMedecin) {
 
-        Medecin existingMedecin = medecinRepo.findByCinMedecin(cinMedecin);
-
-        if (existingMedecin != null) {
-
-            existingMedecin.setCinMed(updatedMedecin.getCinMed());
-            existingMedecin.setNomMed(updatedMedecin.getNomMed());
-
-
-
-            existingMedecin.setTelMed(updatedMedecin.getTelMed());
-
-            existingMedecin.setPrix(updatedMedecin.getPrix());
-            // Update other attributes as needed
-
-            // Save the updated medecin
-            existingMedecin = medecinRepo.save(existingMedecin);
-        } else {
-            // Handle the case where the medecin with the given CIN is not found
-            throw new EntityNotFoundException("Medecin not found for CIN: " + cinMedecin);
-        }
-
-        return existingMedecin;
-    }
     @Override
     public void deleteMedecin(Integer idMedecin) {
         medecinRepo.deleteById(idMedecin);
     }
 
     @Override
-    public Medecin affichMedecin(Integer cinMedecin) {
-        return medecinRepo.findByCinMedecin(cinMedecin);
+    public List<Medecin> getMedecinBySpecialite(Specialite specialite) {
+        return medecinRepo.findBySpecialite(specialite);
     }
+
+
 
 
 
