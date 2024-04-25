@@ -2,9 +2,11 @@ package com.springboot.rendezvousapp.services.impl;
 
 
 import com.springboot.rendezvousapp.entities.Medecin;
+import com.springboot.rendezvousapp.entities.Patient;
 import com.springboot.rendezvousapp.entities.Specialite;
 import com.springboot.rendezvousapp.entities.User;
 import com.springboot.rendezvousapp.repository.MedecinRepo;
+import com.springboot.rendezvousapp.repository.PatientRepo;
 import com.springboot.rendezvousapp.repository.UserRepo;
 import com.springboot.rendezvousapp.services.Services;
 import jakarta.persistence.EntityNotFoundException;
@@ -19,6 +21,8 @@ public class ServicesImpl implements Services {
     private UserRepo userRepo;
     @Autowired
     private MedecinRepo medecinRepo;
+    @Autowired
+    private PatientRepo patientRepo;
 
     @Override
     public User addUser(User user) {
@@ -55,6 +59,24 @@ public class ServicesImpl implements Services {
         return medecinRepo.findBySpecialite(specialite);
     }
 
+
+
+    @Override
+    public Patient addPatient(Patient patient) {
+        return patientRepo.save(patient);
+    }
+    @Override
+    public Patient updatePatient(Patient patient) {
+        return patientRepo.save(patient);
+    }
+    @Override
+    public void deletePatient(Integer idPatient) {
+        patientRepo.deleteById(idPatient);
+    }
+    @Override
+    public Patient affichPatient(Integer idPatient) {
+        return patientRepo.findById(idPatient).orElse(null);
+    }
 
 
 

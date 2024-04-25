@@ -1,6 +1,7 @@
 package com.springboot.rendezvousapp.controller;
 
 import com.springboot.rendezvousapp.entities.Medecin;
+import com.springboot.rendezvousapp.entities.Patient;
 import com.springboot.rendezvousapp.entities.Specialite;
 import com.springboot.rendezvousapp.entities.User;
 import com.springboot.rendezvousapp.services.Services;
@@ -50,8 +51,8 @@ public class AdminController {
     @PreAuthorize("permitAll()")
     @PostMapping("/addmedecin")
     public Medecin addMedecin(@RequestBody Medecin medecin) {
-        Medecin u=services.addMedecin(medecin);
-        return u;
+        Medecin m=services.addMedecin(medecin);
+        return m;
     }
 
 
@@ -66,6 +67,29 @@ public class AdminController {
     @GetMapping("/medecinBySpecialite/{specialite}")
     public List<Medecin> getMedecinBySpecialite(@PathVariable Specialite specialite) {
         return services.getMedecinBySpecialite(specialite);
+    }
+    @PreAuthorize("permitAll()")
+    @PostMapping("/addpatient")
+    public Patient addPatient(@RequestBody Patient patient) {
+        Patient p=services.addPatient(patient);
+        return p;
+    }
+    @PreAuthorize("permitAll()")
+    @PutMapping("/updatePatient")
+    public Patient updatePatient(@RequestBody  Patient patient) {
+        Patient p=services.updatePatient(patient);
+        return p;
+    }
+    @PreAuthorize("permitAll()")
+    @DeleteMapping("/deletePatient/{idPatient}")
+    public void deletePatient(@PathVariable ("idPatient")Integer idPatient) {
+        services.deletePatient(idPatient);
+    }
+    @PreAuthorize("permitAll()")
+    @GetMapping("/affichPatient/{idPatient}")
+    public Patient affichPatient(@PathVariable ("idPatient")Integer idPatient) {
+        Patient p=services.affichPatient(idPatient);
+        return p;
     }
 
 
