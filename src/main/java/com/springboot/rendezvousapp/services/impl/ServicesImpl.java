@@ -82,19 +82,22 @@ public class ServicesImpl implements Services {
         return patientRepo.findById(idPatient).orElse(null);
     }
 
-
+    //choisir mode de paiement
     @Override
-    public RDV addRDV(RDV rdv) {
+    public void choisirModePaiement(Integer cinPat, ModePaiement modePaiementChoisi) {
+        Patient patient = patientRepo.findByCinPat(cinPat);
 
-        Medecin medecin = medecinRepo.findByNomMedecin(rdv.getNomDuMedecin());
-        Patient patient = patientRepo.findByNomPatient(rdv.getNomDuPatient());
+        if (patient != null) {
 
-
-        rdv.setMedecin(medecin);
-        rdv.setPatient(patient);
-        rdv.setPaiementRDV(PaiementRDV.NonPayes);
-        return rdvRepo.save(rdv);
+            patient.setModePaiement(modePaiementChoisi);
+            patientRepo.save(patient);
+        }
     }
+
+
+
+
+
 
 
 

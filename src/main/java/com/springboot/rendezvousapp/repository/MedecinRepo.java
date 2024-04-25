@@ -15,6 +15,6 @@ import java.util.List;
 public interface MedecinRepo extends JpaRepository <Medecin, Integer> {
 
     List<Medecin> findBySpecialite(@Param("specialite") Specialite specialite);
-    Medecin findByNomMedecin(String nomDuMedecin);
+
 
 }

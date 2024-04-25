@@ -25,6 +25,7 @@ public interface Services {
     public Patient affichPatient(Integer idPatient);
 
     //RDV
-    public RDV addRDV(RDV rdv);
+
+    public void choisirModePaiement(Integer cinPat, ModePaiement modePaiementChoisi);
 
 }

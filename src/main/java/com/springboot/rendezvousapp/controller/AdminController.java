@@ -1,11 +1,9 @@
 package com.springboot.rendezvousapp.controller;
 
-import com.springboot.rendezvousapp.entities.Medecin;
-import com.springboot.rendezvousapp.entities.Patient;
-import com.springboot.rendezvousapp.entities.Specialite;
-import com.springboot.rendezvousapp.entities.User;
+import com.springboot.rendezvousapp.entities.*;
 import com.springboot.rendezvousapp.services.Services;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -98,6 +96,8 @@ public class AdminController {
         List<Medecin> medecins=services.getAllMedecins();
         return medecins;
     }
+
+
 
 
 
