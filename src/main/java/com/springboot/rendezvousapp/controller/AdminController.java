@@ -96,6 +96,37 @@ public class AdminController {
         List<Medecin> medecins=services.getAllMedecins();
         return medecins;
     }
+    @PreAuthorize("permitAll()")
+    @PostMapping("/addrdv")
+    public RDV ajouterRDV(@RequestBody RDV rdv) {
+        RDV rendezvous=services.addRDV(rdv);
+        return rendezvous;
+    }
+    @PreAuthorize("permitAll()")
+    @PutMapping("/rdvs/{idRDV}/etat/{etat}")
+    public ResponseEntity<?> marquerEtatRDV(@PathVariable("idRDV") Integer idRDV,
+                                            @PathVariable("etat") EtatRDV etat,
+                                            @RequestParam Integer cinMedecin) {
+        services.marquerEtatRDV(idRDV, etat, cinMedecin);
+        return ResponseEntity.ok().build();
+    }
+    @PreAuthorize("permitAll()")
+    @GetMapping("/patients/{cinPatient}/rdvs")
+    public List<RDV> getRDVsForPatient(@PathVariable Integer cinPatient) {
+        return services.getRDVsForPatient(cinPatient);
+    }
+    @PreAuthorize("permitAll()")
+    @GetMapping("/medecin/{cinMedecin}/rdvs")
+    public List<RDV> getRDVsForMedecin(@PathVariable Integer cinMedecin) {
+        return services.getRDVsForMedecin(cinMedecin);
+    }
+    @PreAuthorize("permitAll()")
+    @PutMapping("/{cin}/mode-paiement")
+    public ResponseEntity<String> choisirModePaiement(@PathVariable("cin") Integer cinPatient, @RequestParam ModePaiement modePaiementChoisi) {
+        services.choisirModePaiement(cinPatient, modePaiementChoisi);
+        return ResponseEntity.status(HttpStatus.OK).body("Mode de paiement choisi avec succès pour le patient avec le CIN : " + cinPatient);
+    }
+
 
 
 

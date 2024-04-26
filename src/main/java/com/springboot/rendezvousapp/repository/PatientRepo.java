@@ -13,4 +13,6 @@ public interface PatientRepo extends JpaRepository<Patient,Integer> {
     Optional<Patient> findById(Integer idPatient);
 
     Patient findByCinPat(Integer cinPat);
+    Patient findByNomPat(String nomDuPatient);
+
 }

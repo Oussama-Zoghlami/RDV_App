@@ -1,6 +1,7 @@
 package com.springboot.rendezvousapp.controller;
 
 import com.springboot.rendezvousapp.entities.ModePaiement;
+import com.springboot.rendezvousapp.entities.Patient;
 import com.springboot.rendezvousapp.services.Services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,11 +19,13 @@ public class PatientController {
         return ResponseEntity.ok("hi Patient");
     }
 
-
     @PreAuthorize("permitAll()")
-    @PostMapping("/{cin}/mode-paiement")
-    public ResponseEntity<String> choisirModePaiement(@PathVariable("cin") Integer cinPatient, @RequestParam ModePaiement modePaiementChoisi) {
-        patientServices.choisirModePaiement(cinPatient, modePaiementChoisi);
-        return ResponseEntity.status(HttpStatus.OK).body("Mode de paiement choisi avec succès pour le patient avec le CIN : " + cinPatient);
+    @PostMapping("/addpatient")
+    public Patient addPatient(@RequestBody Patient patient) {
+        Patient p=patientServices.addPatient(patient);
+        return p;
     }
+
+
+
 }

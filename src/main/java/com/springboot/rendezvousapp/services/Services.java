@@ -28,4 +28,11 @@ public interface Services {
 
     public void choisirModePaiement(Integer cinPat, ModePaiement modePaiementChoisi);
 
+    public RDV addRDV(RDV rdv);
+    public void marquerEtatRDV(Integer idRDV, EtatRDV nouvelEtat, Integer cinMedecin);
+    public List<RDV> getRDVsForPatient(Integer cinPatient);
+    public List<RDV> getRDVsForMedecin(Integer cinMedecin);
+
+
+
 }

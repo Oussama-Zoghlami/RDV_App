@@ -93,6 +93,56 @@ public class ServicesImpl implements Services {
             patientRepo.save(patient);
         }
     }
+    @Override
+    public RDV addRDV(RDV rdv) {
+
+        Medecin medecin = medecinRepo.findByNomMed(rdv.getNomDuMedecin());
+        Patient patient = patientRepo.findByNomPat(rdv.getNomDuPatient());
+
+
+        rdv.setMedecin(medecin);
+        rdv.setPatient(patient);
+        rdv.setPaiementRDV(PaiementRDV.NonPayes);
+        return rdvRepo.save(rdv);
+    }
+
+    @Override
+    public void marquerEtatRDV(Integer idRDV, EtatRDV nouvelEtat, Integer cinMedecin) {
+        RDV rdv = rdvRepo.findById(idRDV).orElse(null);
+
+        if (rdv != null) {
+            Medecin medecin = medecinRepo.findByCinMed(cinMedecin);
+
+            // Vérifiez si le médecin est associé au RDV
+            if (medecin != null && rdv.getMedecin().equals(medecin)) {
+                rdv.setEtatRDV(nouvelEtat);
+                rdvRepo.save(rdv);
+            }
+        }
+    }
+    @Override
+    public List<RDV> getRDVsForPatient(Integer cinPatient) {
+        Patient patient = patientRepo.findByCinPat(cinPatient);
+
+        if (patient == null) {
+            throw new EntityNotFoundException("Patient not found for CIN: " + cinPatient);
+        }
+        List<RDV> rdvsForPatient = rdvRepo.findByPatient_IdPat(patient.getIdPat());
+
+        return rdvsForPatient;
+    }
+    @Override
+    public List<RDV> getRDVsForMedecin(Integer cinMedecin) {
+        Medecin medecin = medecinRepo.findByCinMed(cinMedecin);
+
+        if (medecin == null) {
+            throw new EntityNotFoundException("Medecin not found for CIN: " + cinMedecin);
+        }
+        List<RDV> rdvsForMedecin = rdvRepo.findByMedecin_IdMed(medecin.getIdMed());
+
+        return rdvsForMedecin;
+    }
+
 
 
 
