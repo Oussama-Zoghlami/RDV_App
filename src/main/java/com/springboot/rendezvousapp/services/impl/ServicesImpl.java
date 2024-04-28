@@ -2,16 +2,15 @@ package com.springboot.rendezvousapp.services.impl;
 
 
 import com.springboot.rendezvousapp.entities.*;
-import com.springboot.rendezvousapp.repository.MedecinRepo;
-import com.springboot.rendezvousapp.repository.PatientRepo;
-import com.springboot.rendezvousapp.repository.RDVRepo;
-import com.springboot.rendezvousapp.repository.UserRepo;
+import com.springboot.rendezvousapp.repository.*;
 import com.springboot.rendezvousapp.services.Services;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServicesImpl implements Services {
@@ -23,6 +22,8 @@ public class ServicesImpl implements Services {
     private PatientRepo patientRepo;
     @Autowired
     private RDVRepo rdvRepo;
+    @Autowired
+    private CliniqueRepo cliniqueRepo;
 
     @Override
     public User addUser(User user) {
@@ -54,10 +55,7 @@ public class ServicesImpl implements Services {
         medecinRepo.deleteById(idMedecin);
     }
 
-    @Override
-    public List<Medecin> getMedecinBySpecialite(Specialite specialite) {
-        return medecinRepo.findBySpecialite(specialite);
-    }
+
     @Override
     public List<Medecin> getAllMedecins() {
         return medecinRepo.findAll();
@@ -139,9 +137,41 @@ public class ServicesImpl implements Services {
             throw new EntityNotFoundException("Medecin not found for CIN: " + cinMedecin);
         }
         List<RDV> rdvsForMedecin = rdvRepo.findByMedecin_IdMed(medecin.getIdMed());
-
         return rdvsForMedecin;
     }
+
+    @Override
+    public List<Medecin> getAllMedecin(Specialite specialite) {
+        List<Medecin> medecins = medecinRepo.getMedecinBySpecialite(specialite);
+        return medecins;
+    }
+    //Clinique
+    @Override
+    public Clinique addClinique(Clinique clinique) {
+        return cliniqueRepo.save(clinique);
+    }
+    @Override
+    public Clinique updateClinique(Clinique clinique) {
+        return cliniqueRepo.save(clinique);
+    }
+    @Override
+    public void deleteClinique(Integer codeClinique) {
+        cliniqueRepo.findByCodeClinique(codeClinique);
+    }
+    @Override
+    public Clinique affichClinique(Integer codeClinique) {
+        return cliniqueRepo.findByCodeClinique(codeClinique).orElse(null);
+    }
+
+
+    @Override
+    public Optional<RDV> findRDVCommun(Integer cinPatient, Integer cinMedecin) {
+
+        Optional<RDV> rdvCommun = rdvRepo.findRDVCommun(cinPatient, cinMedecin);
+        return rdvCommun;
+    }
+
+
 
 
 

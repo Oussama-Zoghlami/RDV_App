@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/auth/admin")
@@ -61,11 +62,7 @@ public class AdminController {
     public void deleteMedecin(@PathVariable ("idMedecin")Integer idMedecin) {
         services.deleteMedecin(idMedecin);
     }
-    @PreAuthorize("permitAll()")
-    @GetMapping("/medecinBySpecialite/{specialite}")
-    public List<Medecin> getMedecinBySpecialite(@PathVariable Specialite specialite) {
-        return services.getMedecinBySpecialite(specialite);
-    }
+
     @PreAuthorize("permitAll()")
     @PostMapping("/addpatient")
     public Patient addPatient(@RequestBody Patient patient) {
@@ -125,6 +122,53 @@ public class AdminController {
     public ResponseEntity<String> choisirModePaiement(@PathVariable("cin") Integer cinPatient, @RequestParam ModePaiement modePaiementChoisi) {
         services.choisirModePaiement(cinPatient, modePaiementChoisi);
         return ResponseEntity.status(HttpStatus.OK).body("Mode de paiement choisi avec succès pour le patient avec le CIN : " + cinPatient);
+    }
+    @PreAuthorize("permitAll()")
+
+    @GetMapping("/byspecialite")
+    public List<Medecin> getAllMedecin(@RequestParam Specialite specialite) {
+        return services.getAllMedecin(specialite);
+    }
+
+
+
+    @PreAuthorize("permitAll()")
+    @PostMapping("/addclinique")
+    public Clinique addClinique(@RequestBody Clinique clinique) {
+        Clinique c=services.addClinique(clinique);
+        return c;
+    }
+    @PreAuthorize("permitAll()")
+    @PutMapping("/updateClinique")
+    public Clinique updateClinique(@RequestBody  Clinique clinique) {
+        Clinique c=services.updateClinique(clinique);
+        return c;
+    }
+    @PreAuthorize("permitAll()")
+    @DeleteMapping("/deleteClinique/{codeClinique}")
+    public void deleteClinique(@PathVariable ("codeClinique")Integer codeClinique) {
+        services.deleteClinique(codeClinique);
+    }
+    @PreAuthorize("permitAll()")
+    @GetMapping("/affichClinique/{codeClinique}")
+    public Clinique affichClinique(@PathVariable ("codeClinique")Integer codeClinique) {
+        Clinique c=services.affichClinique(codeClinique);
+        return c;
+    }
+
+    @PreAuthorize("permitAll()")
+
+    @GetMapping("/findRDVCommun")
+    public ResponseEntity<RDV> findRDVCommun(
+            @RequestParam("cinPatient") Integer cinPatient,
+            @RequestParam("cinMedecin") Integer cinMedecin
+    ) {
+        Optional<RDV> rdvCommun = services.findRDVCommun(cinPatient, cinMedecin);
+        if (rdvCommun.isPresent()) {
+            return ResponseEntity.ok(rdvCommun.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
 
