@@ -61,7 +61,10 @@ public class ServicesImpl implements Services {
         return medecinRepo.findAll();
     }
 
-
+    @Override
+    public Medecin updateMedecin(Medecin medecin) {
+        return medecinRepo.save(medecin);
+    }
 
     @Override
     public Patient addPatient(Patient patient) {
@@ -169,6 +172,22 @@ public class ServicesImpl implements Services {
 
         Optional<RDV> rdvCommun = rdvRepo.findRDVCommun(cinPatient, cinMedecin);
         return rdvCommun;
+    }
+
+    @Override
+    public void affectMedecinClinique(Integer idMed, Integer idClinique) {
+        Medecin m = medecinRepo.findById(idMed).get();
+        Clinique c = cliniqueRepo.findById(idClinique).get();
+
+        m.setClinique(c);
+        medecinRepo.save(m);
+
+
+    }
+
+    @Override
+    public List<RDV> getAllRDVs() {
+        return rdvRepo.findAll();
     }
 
 

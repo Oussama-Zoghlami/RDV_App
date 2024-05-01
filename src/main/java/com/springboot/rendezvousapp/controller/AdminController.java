@@ -172,6 +172,28 @@ public class AdminController {
     }
 
 
+    @PreAuthorize("permitAll()")
+    @PutMapping("/affecterMedecinClinique/{idMed}/{idClinique}")
+    public void affectMedecinClinique (@PathVariable Integer idMed,@PathVariable Integer idClinique){
+        services.affectMedecinClinique(idMed,idClinique);
+    }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/listRDVs")
+    public List<RDV> getAllRDVs() {
+        List<RDV> rdvs=services.getAllRDVs();
+        return rdvs;
+    }
+
+
+    @PreAuthorize("permitAll()")
+    @PutMapping("/updateMedecin")
+    public Medecin updateMedecin(@RequestBody  Medecin medecin) {
+        Medecin m=services.updateMedecin(medecin);
+        return m;
+    }
+
+
 
 
 

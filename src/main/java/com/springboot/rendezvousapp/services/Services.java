@@ -19,7 +19,7 @@ public interface Services {
     public void deleteMedecin(Integer idMedecin);
     public List<Medecin> getAllMedecins();
     //public Medecin affichMedecin(Integer cinMed);
-
+    public Medecin updateMedecin(Medecin medecin);
     public Patient addPatient(Patient patient);
     public Patient updatePatient(Patient patient);
     public void deletePatient(Integer idPatient);
@@ -42,5 +42,8 @@ public interface Services {
     public Optional<RDV> findRDVCommun(Integer cinPatient, Integer cinMedecin);
 
 
+    public void affectMedecinClinique(Integer idMed, Integer idClinique);
+
+    public List<RDV> getAllRDVs();
 
 }
