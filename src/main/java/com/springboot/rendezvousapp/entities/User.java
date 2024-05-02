@@ -15,15 +15,15 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_user")
+
     private Integer id;
-    @Column(name = "firstname")
+
     private String firstname;
-    @Column(name = "lastname")
+
     private String lastname;
-    @Column(name = "email_user")
+
     private String email;
-    @Column(name = "password_user")
+
     private String password;
 
 

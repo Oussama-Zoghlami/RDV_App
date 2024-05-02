@@ -18,7 +18,7 @@ public class AdminController {
     private final Services services;
     //Gerer les utilisateurs
 
-    @PreAuthorize("permitAll()")
+   @PreAuthorize("permitAll()")
     @PostMapping("/adduser")
     public User addUser(@RequestBody User user) {
         User u=services.addUser(user);

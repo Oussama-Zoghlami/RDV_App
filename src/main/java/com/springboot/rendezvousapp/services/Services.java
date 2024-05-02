@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface Services {
 
-    public User addUser(User user);
+   public User addUser(User user);
     public User updateUser(User user);
     public void deleteUser(Integer idUser);
     public User affichUser(Integer idUser);

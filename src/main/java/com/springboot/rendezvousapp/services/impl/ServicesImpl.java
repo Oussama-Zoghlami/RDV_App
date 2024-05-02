@@ -27,7 +27,7 @@ public class ServicesImpl implements Services {
 
     @Override
     public User addUser(User user) {
-        return userRepo.save(user);
+      return userRepo.save(user);
     }
     @Override
     public User updateUser(User user) {

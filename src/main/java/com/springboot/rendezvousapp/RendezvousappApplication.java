@@ -4,6 +4,7 @@ import com.springboot.rendezvousapp.entities.Role;
 import com.springboot.rendezvousapp.entities.User;
 import com.springboot.rendezvousapp.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -14,7 +15,7 @@ import java.util.List;
 @EnableScheduling
 @EnableAspectJAutoProxy
 @SpringBootApplication(scanBasePackages = "com.springboot.rendezvousapp")
-public class RendezvousappApplication {
+public class RendezvousappApplication implements CommandLineRunner {
 	@Autowired
 	private UserRepo userRepo;
 
